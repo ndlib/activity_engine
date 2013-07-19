@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/ndlib/satchel"
   s.summary     = "Satchel - a mountable Rails engine for activity streams"
   s.description = "Satchel - a mountable Rails engine for activity streams"
+  s.license = "APACHE2"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

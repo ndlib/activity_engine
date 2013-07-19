@@ -12,6 +12,13 @@ That is to say Fedora Commons for the persisted objects, and an ActiveRecord dat
 * Allow for collecting my activity
 * Allow for collecting a persisted objects activity
 
+### Commands
+
+    $ rails generate model JournalEntry \
+    journaled_object_type:string journaled_object_id:string \
+    requested_by_user_id:string journal_type:string \
+    message:text
+
 ## Phase 2
 
 Allow for the registration of all activity observers on an application basis.

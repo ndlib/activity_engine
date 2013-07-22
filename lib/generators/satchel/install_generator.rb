@@ -9,6 +9,11 @@ module Satchel
         template "satchel_config.rb", "config/initializers/satchel_config.rb"
       end
 
+      def run_migrations
+        rake('satchel:install:migrations')
+        rake('db:migrate')
+      end
+
     end
   end
 end

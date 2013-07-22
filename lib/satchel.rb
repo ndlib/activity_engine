@@ -1,4 +1,6 @@
 require "satchel/engine"
+require 'satchel/context_builder'
+require 'satchel/activity_builder'
 
 module Satchel
   module_function

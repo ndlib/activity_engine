@@ -44,7 +44,7 @@ describe Satchel::ActivityBuilder do
     it 'rejects a subject that does not respond_to persisted?' do
       expect {
         subject.subject = ""
-      }.to raise_error(Satchel::ActivityBuilder::ConfigurationError)
+      }.to raise_error(NoMethodError)
     end
   end
 

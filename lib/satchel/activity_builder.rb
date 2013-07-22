@@ -1,14 +1,11 @@
 require 'satchel/activity_data_structure'
+require 'satchel/exceptions'
 module Satchel
   class ActivityBuilder
-    class ConfigurationError < RuntimeError
-      def initialize(method_name, parameter)
-        super("Unable to set :#{method_name} with #{parameter.inspect}")
-      end
-    end
 
     attr_accessor :configuration_proc, :activity_receiver
     private :activity_receiver=, :configuration_proc=
+
     def initialize(activity_receiver, configuration_proc)
       unless activity_receiver.respond_to?(:call)
         raise RuntimeError, "Excpected :activity_receiver #{activity_receiver.inspect} to be callable"
@@ -38,10 +35,8 @@ module Satchel
       if persisted_object.persisted?
         @subject = persisted_object
       else
-        raise ConfigurationError.new('subject', persisted_object)
+        raise UnpersistedSubjectError.new(persisted_object)
       end
-    rescue NoMethodError
-      raise ConfigurationError.new('subject', persisted_object)
     end
 
     attr_reader :subject

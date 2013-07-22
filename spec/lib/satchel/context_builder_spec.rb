@@ -75,7 +75,7 @@ describe Satchel::ContextBuilder do
       it {
         expect{
           subject
-        }.to raise_error(Satchel::ContextBuilder::MethodExtractionError)
+        }.to raise_error(NameError)
       }
     end
   end

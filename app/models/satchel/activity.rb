@@ -1,3 +1,4 @@
+require 'satchel/exceptions'
 module Satchel
   class Activity < ActiveRecord::Base
     def self.call(data)
@@ -16,8 +17,12 @@ module Satchel
     end
 
     def subject=(object)
-      write_attribute(:subject_type, object.class.to_s)
-      write_attribute(:subject_id, object.to_param)
+      if object.persisted?
+        write_attribute(:subject_type, object.class.to_s)
+        write_attribute(:subject_id, object.to_param)
+      else
+        raise UnpersistedSubjectError.new(object)
+      end
     end
   end
 end

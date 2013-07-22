@@ -1,10 +1,6 @@
+require 'satchel/exceptions'
 module Satchel
   class ContextBuilder
-    class MethodExtractionError < NameError
-      def initialize(class_name, method_name)
-        "Unable to extract method from #{class_name}##{method_name}"
-      end
-    end
 
     def initialize(class_name, method_name)
       self.class_name = class_name
@@ -38,8 +34,6 @@ module Satchel
 
     def extract_method!
       @context_method = context_class.instance_method(method_name)
-    rescue NameError
-      raise MethodExtractionError.new(class_name, method_name)
     end
 
   end

@@ -1,5 +1,14 @@
 ENV["RAILS_ENV"] ||= 'test'
 
+if ENV['COVERAGE']
+  require 'simplecov'
+  SimpleCov.command_name "spec"
+  SimpleCov.start 'rails' do
+    add_filter '/spec'
+  end
+end
+
+
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require File.expand_path('../spec_patch', __FILE__)
 require "rails/test_help"

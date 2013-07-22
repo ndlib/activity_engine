@@ -1,17 +1,31 @@
 require 'spec_helper'
+require 'satchel'
 
 describe Satchel do
+  class Cat < PersistenceLayer
+    def initialize(name)
+      super()
+      @name = name
+    end
+    attr_reader :name
+    def eat(food); food; end
+  end
+  Food = Struct.new(:name)
 
-  # Satchel.register('ApplicationController#new') do |registry, context|
-  #   registry.subject = context.person
+  describe '.register' do
+    let(:cat) { Cat.new('Beautiful Steve') }
+    let(:food) { Food.new('catsup') }
+    let(:receiver) { Satchel::Activity }
 
-  #   # Assumes to context.current_user
-  #   registry.current_user = context.current_user
-
-  #   # Assumes to be Class#method
-  #   registry.activity_type = 'ApplicationController#new'
-  #   registry.message = "Hello World"
-  # end
+    it 'reports when the method is called' do
+      Satchel.register(Cat, :eat, receiver) do |config, context|
+        config.subject = context
+        config.activity_type = 'Cat#eat'
+      end
+      cat.eat(food)
+      expect(receiver.last.subject).to eq(cat)
+    end
+  end
 
   describe 'entry creation' do
     it 'creates an entry for a persisted object'

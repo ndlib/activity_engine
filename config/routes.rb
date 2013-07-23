@@ -1,2 +1,2 @@
-Satchel::Engine.routes.draw do
+ActivityEngine::Engine.routes.draw do
 end

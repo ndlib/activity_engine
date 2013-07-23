@@ -1,6 +1,6 @@
-require 'satchel/activity_data_structure'
-require 'satchel/exceptions'
-module Satchel
+require 'activity_engine/activity_data_structure'
+require 'activity_engine/exceptions'
+module ActivityEngine
   class ActivityBuilder
 
     attr_accessor :configuration_proc, :activity_receiver

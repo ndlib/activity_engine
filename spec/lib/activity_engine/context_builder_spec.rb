@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'satchel/context_builder'
+require 'activity_engine/context_builder'
 
-describe Satchel::ContextBuilder do
+describe ActivityEngine::ContextBuilder do
   class MockContext
     attr_reader :parameter, :counter
     def initialize(parameter)
@@ -12,7 +12,7 @@ describe Satchel::ContextBuilder do
   end
   let(:class_name) { 'MockContext' }
 
-  subject { Satchel::ContextBuilder.new(class_name, method_name) }
+  subject { ActivityEngine::ContextBuilder.new(class_name, method_name) }
 
   describe 'wrap!' do
     let(:wrapper_logger) { [] }

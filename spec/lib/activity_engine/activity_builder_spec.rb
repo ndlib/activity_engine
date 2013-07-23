@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'satchel/activity_builder'
+require 'activity_engine/activity_builder'
 
-describe Satchel::ActivityBuilder do
+describe ActivityEngine::ActivityBuilder do
   let(:configuration) {
     lambda {|config,context|
       config.subject = context
@@ -9,7 +9,7 @@ describe Satchel::ActivityBuilder do
     }
   }
   let(:receiver) { lambda {|attributes|} }
-  subject { Satchel::ActivityBuilder.new(receiver, configuration) }
+  subject { ActivityEngine::ActivityBuilder.new(receiver, configuration) }
   let(:persisted_object) { double(persisted?: true, to_param: '1234')}
   let(:non_persisted_object) { double(persisted?: false, to_param: nil)}
 

@@ -1,5 +1,5 @@
-require 'satchel/exceptions'
-module Satchel
+require 'activity_engine/exceptions'
+module ActivityEngine
   class ContextBuilder
 
     def initialize(class_name, method_name)

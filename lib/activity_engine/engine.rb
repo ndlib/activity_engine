@@ -1,6 +1,6 @@
-module Satchel
+module ActivityEngine
   class Engine < ::Rails::Engine
-    isolate_namespace Satchel
+    isolate_namespace ActivityEngine
 
     config.generators do |g|
       g.test_framework :rspec, :fixture => false

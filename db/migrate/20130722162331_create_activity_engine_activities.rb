@@ -1,6 +1,6 @@
-class CreateSatchelActivities < ActiveRecord::Migration
+class CreateActivityEngineActivities < ActiveRecord::Migration
   def change
-    create_table :satchel_activities do |t|
+    create_table :activity_engine_activities do |t|
       t.integer :user_id
       t.string :subject_type, index: true, null: false
       t.string :subject_id, index: true, null: false
@@ -8,6 +8,6 @@ class CreateSatchelActivities < ActiveRecord::Migration
       t.text :message
       t.timestamps
     end
-    add_index :satchel_activities, :user_id
+    add_index :activity_engine_activities, :user_id
   end
 end

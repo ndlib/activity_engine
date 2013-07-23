@@ -1,5 +1,5 @@
 ##########################################################################
-# satchel
+# activity_engine
 #
 # Copyright © 2013 University of Notre Dame
 # Additional copyright may be held by others, as reflected in the commit history.

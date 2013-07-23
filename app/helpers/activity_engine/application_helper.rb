@@ -1,4 +1,4 @@
-module Satchel
+module ActivityEngine
   module ApplicationHelper
   end
 end

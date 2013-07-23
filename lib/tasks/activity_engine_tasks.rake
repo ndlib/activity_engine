@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :satchel do
+# task :activity_engine do
 #   # Task goes here
 # end

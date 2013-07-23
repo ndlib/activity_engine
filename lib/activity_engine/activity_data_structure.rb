@@ -1,4 +1,4 @@
-module Satchel
+module ActivityEngine
   if !defined?(ActivityDataStructure)
     ActivityDataStructure = Struct.new(
       :subject,

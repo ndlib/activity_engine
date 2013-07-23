@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-module Satchel
+module ActivityEngine
   describe Activity do
-    subject { Satchel::Activity.new }
+    subject { ActivityEngine::Activity.new }
     let(:object) { PersistenceLayer.new }
 
     describe 'with persisted object' do
@@ -28,7 +28,7 @@ module Satchel
         def object.persisted?; false; end
         expect {
           subject.subject = object
-        }.to raise_error(Satchel::UnpersistedSubjectError)
+        }.to raise_error(ActivityEngine::UnpersistedSubjectError)
       end
 
       it 'raise exception if the object does not respond to persisted' do

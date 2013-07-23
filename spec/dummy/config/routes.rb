@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
 
-  mount Satchel::Engine => "/satchel"
+  mount ActivityEngine::Engine => "/activity_engine"
 end

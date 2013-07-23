@@ -1,4 +1,4 @@
-# Satchel
+# ActivityEngine
 
 A mountable Rails engine for both recording activity and displaying activity on
 a persisted object.
@@ -7,7 +7,7 @@ a persisted object.
 
 Add this line to your application's Gemfile:
 
-    gem 'satchel'
+    gem 'activity_engine'
 
 And then execute:
 
@@ -15,17 +15,17 @@ And then execute:
 
 Then run:
 
-    $ rails g satchel:install
+    $ rails g activity_engine:install
 
 ## Register a Method
 
 To record activity, register a class and method via a Rails generator.
 
-    $ rails g satchel:register <ClassName> <MethodName> <Subject>
+    $ rails g activity_engine:register <ClassName> <MethodName> <Subject>
 
-Or by hand in a config/initializers/satchel_config.rb
+Or by hand in a config/initializers/activity_engine_config.rb
 
-    Satchel.register('<ClassName>', '<MethodName>') do |activity,context|
+    ActivityEngine.register('<ClassName>', '<MethodName>') do |activity,context|
       activity.subject = context.<subject>
       activity.user = context.current_user
       activity.activity_type = "an arbitrary type"

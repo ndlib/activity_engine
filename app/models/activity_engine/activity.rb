@@ -1,5 +1,5 @@
-require 'satchel/exceptions'
-module Satchel
+require 'activity_engine/exceptions'
+module ActivityEngine
   class Activity < ActiveRecord::Base
     def self.call(data)
       create! do |activity|

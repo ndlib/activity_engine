@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'satchel'
+require 'activity_engine'
 
-describe Satchel do
+describe ActivityEngine do
   class Cat < PersistenceLayer
     def initialize(name)
       super()
@@ -15,10 +15,10 @@ describe Satchel do
   describe '.register' do
     let(:cat) { Cat.new('Beautiful Steve') }
     let(:food) { Food.new('catsup') }
-    let(:receiver) { Satchel::Activity }
+    let(:receiver) { ActivityEngine::Activity }
 
     it 'reports when the method is called' do
-      Satchel.register(Cat, :eat, receiver) do |config, context|
+      ActivityEngine.register(Cat, :eat, receiver) do |config, context|
         config.subject = context
         config.activity_type = 'Cat#eat'
       end

@@ -1,4 +1,4 @@
-module Satchel
+module ActivityEngine
   class UnpersistedSubjectError < RuntimeError #:nodoc:
     def initialize(subject)
       super("#{subject.inspect} is not persisted")

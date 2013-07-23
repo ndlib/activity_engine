@@ -13,7 +13,7 @@ module ActivityEngine
         text = [
           "ActivityEngine.register('#{class_name}', '#{method_name}') do |activity, context|",
           "  activity.subject = context.#{subject_method}",
-          "  activity.user = context.current_user",
+          "  activity.current_user = context.current_user",
           "  activity.activity_type = '#{class_name}##{method_name}'",
           "#  activity.message = 'Specify a custom message if applicable'",
           "end",

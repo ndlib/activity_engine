@@ -30,25 +30,8 @@ describe ActivityEngine::ActivityBuilder do
     end
   end
 
-  describe '#subject=' do
-    it 'accepts a subject that is persisted' do
-      expect {
-        subject.subject = persisted_object
-      }.to_not raise_error
-    end
-    it 'rejects a subject that is not persisted' do
-      expect {
-        subject.subject = non_persisted_object
-      }.to raise_error
-    end
-    it 'rejects a subject that does not respond_to persisted?' do
-      expect {
-        subject.subject = ""
-      }.to raise_error(NoMethodError)
-    end
-  end
-
   it { should respond_to :current_user= }
+  it { should respond_to :subject= }
   it { should respond_to :message= }
   it { should respond_to :activity_type= }
 end

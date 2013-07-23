@@ -31,15 +31,6 @@ module ActivityEngine
       }
     end
 
-    def subject=(persisted_object)
-      if persisted_object.persisted?
-        @subject = persisted_object
-      else
-        raise UnpersistedSubjectError.new(persisted_object)
-      end
-    end
-
-    attr_reader :subject
-    attr_accessor :current_user, :message, :activity_type
+    attr_accessor :current_user, :message, :activity_type, :subject
   end
 end

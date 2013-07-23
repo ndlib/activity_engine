@@ -27,6 +27,21 @@ describe ActivityEngine do
     end
   end
 
+  describe '.extract_subject_id' do
+    it 'with multi-values' do
+      obj = double(to_key: ['a','b'] )
+      expect(ActivityEngine.extract_subject_id(obj)).to eq('a:b')
+    end
+    it 'with single value' do
+      obj = double(to_key: ['a'] )
+      expect(ActivityEngine.extract_subject_id(obj)).to eq('a')
+    end
+    it 'with string' do
+      obj = double(to_key: 'a' )
+      expect(ActivityEngine.extract_subject_id(obj)).to eq('a')
+    end
+  end
+
   describe 'entry creation' do
     it 'creates an entry for a persisted object'
     it 'requires an object to be persisted'

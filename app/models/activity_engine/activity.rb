@@ -13,7 +13,7 @@ module ActivityEngine
 
     scope :for_user, lambda {|user| where(user: user)}
     scope :for_subject, lambda {|subject|
-      where(subject_id: subject.to_param, subject_type: subject.class.to_s)
+      where(subject_id: ActivityEngine.extract_subject_id(subject), subject_type: subject.class.to_s)
     }
     scope :for_activity_type, lambda {|activity_type|
       where(activity_type: activity_type)
@@ -31,7 +31,7 @@ module ActivityEngine
     def subject=(object)
       if object.persisted?
         write_attribute(:subject_type, object.class.to_s)
-        write_attribute(:subject_id, object.to_param)
+        write_attribute(:subject_id, ActivityEngine.extract_subject_id(object))
       else
         raise UnpersistedSubjectError.new(object)
       end

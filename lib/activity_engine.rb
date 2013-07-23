@@ -11,4 +11,8 @@ module ActivityEngine
     context_builder.wrap!(activity_builder)
   end
 
+  def extract_subject_id(object)
+    Array(object.to_key).join(":")
+  end
+
 end

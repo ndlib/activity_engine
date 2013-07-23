@@ -13,6 +13,8 @@ require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require File.expand_path('../spec_patch', __FILE__)
 require "rails/test_help"
 require 'rspec/rails'
+require 'database_cleaner'
+
 
 Dir[File.join(File.dirname(__FILE__), "support/**/*.rb")].each {|f| require f}
 
@@ -32,4 +34,18 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
 end

@@ -21,4 +21,5 @@ group :test do
   gem "guard"
   gem "guard-rspec"
   gem 'guard-bundler'
+  gem 'database_cleaner'
 end

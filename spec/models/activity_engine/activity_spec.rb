@@ -5,6 +5,24 @@ module ActivityEngine
     subject { ActivityEngine::Activity.new }
     let(:object) { PersistenceLayer.new }
 
+    describe 'finder scopes' do
+      it 'should have .descending_date' do
+        expect(ActivityEngine::Activity.descending_date).to be_kind_of(ActiveRecord::Relation)
+      end
+      it 'should have .ascending_date' do
+        expect(ActivityEngine::Activity.ascending_date).to be_kind_of(ActiveRecord::Relation)
+      end
+      it 'should have .for_user' do
+        expect(ActivityEngine::Activity.for_user(nil)).to be_kind_of(ActiveRecord::Relation)
+      end
+      it 'should have .for_subject' do
+        expect(ActivityEngine::Activity.for_subject(object)).to be_kind_of(ActiveRecord::Relation)
+      end
+      it 'should have .for_activity_type' do
+        expect(ActivityEngine::Activity.for_activity_type('Hello#World')).to be_kind_of(ActiveRecord::Relation)
+      end
+    end
+
     describe '#subject=' do
       describe 'with persisted object' do
         it 'should marshal the subject' do

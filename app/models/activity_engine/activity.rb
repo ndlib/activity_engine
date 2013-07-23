@@ -9,6 +9,18 @@ module ActivityEngine
         activity.activity_type = data.activity_type
       end
     end
+    default_scope { order("created_at DESC") }
+
+    scope :for_user, lambda {|user| where(user: user)}
+    scope :for_subject, lambda {|subject|
+      where(subject_id: subject.to_param, subject_type: subject.class.to_s)
+    }
+    scope :for_activity_type, lambda {|activity_type|
+      where(activity_type: activity_type)
+    }
+    scope :ascending_date, lambda { order("created_at ASC") }
+    scope :descending_date, lambda { order("created_at DESC") }
+
 
     belongs_to :user
 

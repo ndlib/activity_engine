@@ -26,11 +26,8 @@ module ActivityEngine
       true
     end
 
-    def after_show(record)
-      require 'debugger'; debugger; true
-    end
-
     def after_save(record)
+      self.records_processed ||= []
       if ! self.records_processed.include?(record)
         self.records_processed << record
         ActivityEngine::Activity.new.tap {|activity|

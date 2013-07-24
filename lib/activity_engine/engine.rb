@@ -5,13 +5,11 @@ module ActivityEngine
     config.generators do |g|
       g.test_framework :rspec, :fixture => false
     end
-
-    extend ActiveSupport::Autoload
-    eager_autoload do
-      autoload :ContextBuilder
-      autoload :ActivityBuilder
-      autoload :ActivityDataStructure
-      autoload :Activity
-    end
   end
+
+  extend ActiveSupport::Autoload
+  autoload :ContextBuilder
+  autoload :ActivityBuilder
+  autoload :ActivityDataStructure
+  autoload :Activity
 end

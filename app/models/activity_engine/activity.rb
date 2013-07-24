@@ -21,6 +21,19 @@ module ActivityEngine
     scope :ascending_date, lambda { order("created_at ASC") }
     scope :descending_date, lambda { order("created_at DESC") }
 
+    scope :for_stats, lambda {
+      group("#{quoted_table_name}.activity_type").
+      select("#{quoted_table_name}.activity_type,
+        MAX(#{quoted_table_name}.created_at) AS last_activity_date,
+        COUNT(#{quoted_table_name}.id) AS count"
+      )
+    }
+
+    def self.statistics_for_subject(subject)
+      for_subject(subject).for_stats.each_with_object([]) {|stat, collector|
+        collector << ActivityEngine::Statistic.new(subject,stat.attributes)
+      }
+    end
 
     belongs_to :user
 

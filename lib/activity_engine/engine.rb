@@ -11,5 +11,6 @@ module ActivityEngine
   autoload :ContextBuilder
   autoload :ActivityBuilder
   autoload :ActivityDataStructure
+  autoload :ActivitySweeper
   autoload :Activity
 end

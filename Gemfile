@@ -16,7 +16,14 @@ gem "jquery-rails"
 # To use debugger
 # gem 'debugger'
 
+
 group :test do
+  gem 'growl'
+  gem 'guard'
+  gem 'rb-inotify', require: false
+  gem 'rb-fsevent', require: false if RUBY_PLATFORM =~ /darwin/i
+  gem 'rb-fchange', require: false
+  gem 'terminal-notifier-guard' if RUBY_PLATFORM =~ /darwin/i 
   gem 'simplecov', require: false
   gem "guard"
   gem "guard-rspec"

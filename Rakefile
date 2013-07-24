@@ -11,7 +11,7 @@ load 'rails/tasks/engine.rake'
 Bundler::GemHelper.install_tasks
 
 task :spec do
-  require 'rspec'
+  require 'rspec/core/rake_task'
   ENV['RAILS_ENV'] = 'test'
   Rails.env = 'test'
   Rake::Task["db:drop"].invoke rescue true

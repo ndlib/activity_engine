@@ -8,12 +8,12 @@ if ENV['COVERAGE']
   end
 end
 
-
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require File.expand_path('../spec_patch', __FILE__)
 require "rails/test_help"
 require 'rspec/rails'
 require 'database_cleaner'
+require 'activity_engine'
 
 
 Dir[File.join(File.dirname(__FILE__), "support/**/*.rb")].each {|f| require f}

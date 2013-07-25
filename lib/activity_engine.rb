@@ -2,11 +2,13 @@ require 'activity_engine/engine'
 module ActivityEngine
   module_function
   def register_models(*models)
-    ActivitySweeper.register_models(*models)
+    ActivitySweeper.observe(*models)
   end
 
   def register_controller(controller_name, actions)
-    controller_name.constantize.send(:cache_sweeper, ActivitySweeper, only: actions)
+    controller_name.constantize.module_exec(actions) do
+      cache_sweeper ActivitySweeper, only: actions
+    end
   end
 
   def register(class_name, method_name, activity_receiver = Activity, &config_block)

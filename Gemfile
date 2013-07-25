@@ -17,16 +17,17 @@ gem "jquery-rails"
 # gem 'debugger'
 
 
-group :test do
-  gem 'growl'
+group :test, :development do
   gem 'guard'
+  gem "guard-rspec"
+  gem 'guard-bundler'
+  gem 'guard-livereload'
+  gem 'highline'
   gem 'rb-inotify', require: false
   gem 'rb-fsevent', require: false if RUBY_PLATFORM =~ /darwin/i
   gem 'rb-fchange', require: false
-  gem 'terminal-notifier-guard' if RUBY_PLATFORM =~ /darwin/i 
+  gem 'terminal-notifier-guard' if RUBY_PLATFORM =~ /darwin/i
+  gem 'ruby_gntp'
   gem 'simplecov', require: false
-  gem "guard"
-  gem "guard-rspec"
-  gem 'guard-bundler'
   gem 'database_cleaner'
 end

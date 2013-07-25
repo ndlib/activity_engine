@@ -14,3 +14,5 @@ guard 'bundler' do
   # Uncomment next line if Gemfile contain `gemspec' command
   watch(/^.+\.gemspec/)
 end
+
+notification :gntp

@@ -13,4 +13,5 @@ module ActivityEngine
   autoload :ActivityDataStructure
   autoload :ActivitySweeper
   autoload :Activity
+  autoload :EntryBuilder
 end

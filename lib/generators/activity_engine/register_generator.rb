@@ -21,7 +21,7 @@ module ActivityEngine
           ""
         ].join("\n")
 
-        inject_into_file('config/initializers/activity_engine_config.rb', text, before: /\A.*ActivityEngine.register/)
+        inject_into_file('config/post_initializers/activity_engine_config.rb', text, before: /\A.*ActivityEngine.register/)
       end
     end
   end

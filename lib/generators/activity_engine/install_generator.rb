@@ -6,12 +6,17 @@ module ActivityEngine
       desc "Creates a ActivityEngine initializer."
 
       def copy_initializer
-        template "activity_engine_config.rb", "config/initializers/activity_engine_config.rb"
+        template "activity_engine_config.rb", "config/post_initializers/activity_engine_config.rb"
       end
 
-      def run_migrations
+      def insert_into_application_config
+        application do
+          File.read(File.join(self.class.source_root, "insert_into_application_config.rb"))
+        end
+      end
+
+      def install_migrations
         rake('activity_engine:install:migrations')
-        rake('db:migrate')
       end
 
     end

@@ -6,8 +6,8 @@ module ActivityEngine
   end
 
   def register_controller(controller_name, actions)
-    controller_name.constantize.module_exec(actions) do
-      cache_sweeper ActivitySweeper, only: actions
+    controller_name.constantize.module_exec(actions) do |swept_actions|
+      cache_sweeper ActivitySweeper, only: swept_actions
     end
   end
 

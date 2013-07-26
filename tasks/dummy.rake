@@ -1,6 +1,6 @@
 namespace :dummy do
   desc "Generate a Rails dummy for ActivityEngine tests"
-  task :generate => [:init, :new_app, :install, :migrate]
+  task :generate => [:init, :new_app, :install, :scaffold, :migrate]
 
   desc 'Remove dummy application'
   task :remove => :init do
@@ -13,7 +13,7 @@ namespace :dummy do
   task :regenerate => [:remove, :generate]
 
 
-  task :new_app => [:init, :guard] do
+  task :new_app => [:init] do
     # Cribbed from https://gist.github.com/stas/4131823
     require 'rails'
     require 'activity_engine'
@@ -48,12 +48,20 @@ namespace :dummy do
     )
   end
 
+  task :scaffold => [:init, :new_app, :install] do
+    system("rails generate scaffold Watch --controller-specs false --view-specs false --routing-specs false")
+    system("rails generate scaffold Gear --controller-specs false --view-specs false --routing-specs false")
+    system("rails generate scaffold Invisible --controller-specs false --view-specs false --routing-specs false")
+
+    require 'generators/activity_engine/register_generator'
+    system("rails generate activity_engine:register Watch create")
+    system("rm -rf #{File.join(DUMMY_ROOT,'spec')}")
+  end
+
   task :install => [:init, :new_app] do
     puts "Installing ActivityEngine"
     require 'generators/activity_engine/install_generator'
-    ActivityEngine::Generators::InstallGenerator.start(
-      %W(. --force )
-    )
+    system("rails generate activity_engine:install --force")
   end
   task :migrate => :init do
     puts "Running activity_engine migrations"
@@ -64,13 +72,6 @@ namespace :dummy do
   task :init do
     DummyFileUtils = FileUtils #::DryRun
     DUMMY_ROOT = File.expand_path("../../spec/dummy", __FILE__).freeze
-  end
-
-  task :guard => [:init] do
-    if File.exist?(File.join(DUMMY_ROOT, 'Rakefile'))
-      $stderr.puts "Dummy rakefile already exists"
-      exit!(-1)
-    end
   end
 
 end

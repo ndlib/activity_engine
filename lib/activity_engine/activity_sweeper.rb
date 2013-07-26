@@ -29,7 +29,7 @@ module ActivityEngine
         self.records_processed << record
         ActivityEngine::Activity.new.tap {|activity|
           activity.subject = record
-          activity.user = current_user
+          activity.user = current_user if respond_to?(:current_user)
           activity.activity_type = "#{controller_name}##{action_name}"
         }.save!
       end

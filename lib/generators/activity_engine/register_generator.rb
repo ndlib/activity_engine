@@ -6,17 +6,12 @@ module ActivityEngine
       desc "Creates a ActivityEngine initializer."
       argument :class_name, type: :string
       argument :method_name, type: :string
-      argument :subject_method, type: :string
 
       def copy_initializer
         generate('activity_engine:install')
         text = [
-          "ActivityEngine.register('#{class_name}', '#{method_name}') do |activity, context|",
-          "  activity.subject = context.#{subject_method}",
-          "  activity.current_user = context.current_user",
-          "  activity.activity_type = '#{class_name}##{method_name}'",
-          "#  activity.message = 'Specify a custom message if applicable'",
-          "end",
+          "ActivityEngine.register_models('#{class_name}')",
+          "ActivityEngine.register_controller('#{class_name.pluralize}Controller', '#{method_name}')",
           "",
           ""
         ].join("\n")

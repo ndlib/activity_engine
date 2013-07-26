@@ -1,5 +1,7 @@
 # ActivityEngine
 
+[![Build Status](https://travis-ci.org/ndlib/activity_engine.png)](https://travis-ci.org/ndlib/activity_engine)
+
 A mountable Rails engine for both recording activity and displaying activity on
 a persisted object.
 
@@ -23,7 +25,7 @@ To record activity, register a class and method via a Rails generator.
 
     $ rails g activity_engine:register <ClassName> <MethodName> <Subject>
 
-Or by hand in a config/initializers/activity_engine_config.rb
+Or by hand in a config/post_initializers/activity_engine_config.rb
 
     ActivityEngine.register('<ClassName>', '<MethodName>') do |activity,context|
       activity.subject = context.<subject>
@@ -33,7 +35,3 @@ Or by hand in a config/initializers/activity_engine_config.rb
     end
 
 Then, whenever the ClassName#MethodName is invoke an activity will be recorded.
-
-## TODO
-
-* Provide a means for retrieving an object's activities

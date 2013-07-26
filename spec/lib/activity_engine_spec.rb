@@ -12,13 +12,13 @@ describe ActivityEngine do
   end
   Food = Struct.new(:name)
 
-  describe '.register' do
+  describe '.register_call' do
     let(:cat) { Cat.new('Beautiful Steve') }
     let(:food) { Food.new('catsup') }
     let(:receiver) { ActivityEngine::Activity }
 
     it 'reports when the method is called' do
-      ActivityEngine.register(Cat, :eat, receiver) do |config, context|
+      ActivityEngine.register_call(Cat, :eat, receiver) do |config, context|
         config.subject = context
         config.activity_type = 'Cat#eat'
       end

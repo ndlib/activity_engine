@@ -1,16 +1,12 @@
-task :spec do
-  APP_RAKEFILE = File.expand_path("../../spec/dummy/Rakefile", __FILE__)
-  load 'rails/tasks/engine.rake'
+task :spec => ['dummy:regenerate'] do
   require 'rails'
   require 'rspec/core/rake_task'
-  ENV['RAILS_ENV'] = 'test'
-  Rails.env = 'test'
-  Rake::Task["db:drop"].invoke rescue true
-  Rake::Task["db:create"].invoke
-  Rake::Task['environment'].invoke
-  Rake::Task['db:schema:load'].invoke
-  RSpec::Core::RakeTask.new(:__spec) do |t|
-    t.pattern = "./spec/**/*_spec.rb"
+  RSpec::Core::RakeTask.new(:rspec) do |t|
+    t.pattern = '../**/*_spec.rb'
+    # Because we are running in the context of the dummy app, we need to
+    # make sure that spec_helper.rb is somewhere in the load path.
+    # Thus the "-I ../"
+    t.rspec_opts = "--colour -I ../"
   end
-  Rake::Task['__spec'].invoke
+  Rake::Task['rspec'].invoke
 end

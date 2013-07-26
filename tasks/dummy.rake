@@ -1,6 +1,6 @@
 namespace :dummy do
   desc "Generate a Rails dummy for ActivityEngine tests"
-  task :generate => [:init, :new_app, :install, :scaffold, :migrate]
+  task :generate => [:init, :new_app, :install, :scaffold, :migrate, :cleanup]
 
   desc 'Remove dummy application'
   task :remove => :init do
@@ -49,13 +49,13 @@ namespace :dummy do
   end
 
   task :scaffold => [:init, :new_app, :install] do
-    system("rails generate scaffold Watch --controller-specs false --view-specs false --routing-specs false")
-    system("rails generate scaffold Gear --controller-specs false --view-specs false --routing-specs false")
-    system("rails generate scaffold Invisible --controller-specs false --view-specs false --routing-specs false")
+    system("rails generate scaffold Watch")
+    system("rails generate scaffold Gear")
+    system("rails generate scaffold Invisible")
 
     require 'generators/activity_engine/register_generator'
     system("rails generate activity_engine:register Watch create")
-    system("rm -rf #{File.join(DUMMY_ROOT,'spec')}")
+    Rake::Task['dummy:cleanup'].invoke
   end
 
   task :install => [:init, :new_app] do
@@ -63,6 +63,11 @@ namespace :dummy do
     require 'generators/activity_engine/install_generator'
     system("rails generate activity_engine:install --force")
   end
+
+  task :cleanup => [:init] do
+    system("rm -rf #{File.join(DUMMY_ROOT,'spec')}")
+  end
+
   task :migrate => :init do
     puts "Running activity_engine migrations"
     rakefile = File.join(DUMMY_ROOT, 'Rakefile')

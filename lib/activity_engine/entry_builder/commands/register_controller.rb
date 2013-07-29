@@ -12,8 +12,16 @@ module ActivityEngine
         end
 
         def call
-          engine.register_models(models)
-          engine.register_controller(controller_name, action_names)
+          sweeper_class.observe(models)
+          controller_name.constantize.module_exec(sweeper_class, action_names) do |klass, actions|
+            cache_sweeper klass, only: actions
+          end
+        end
+
+        protected
+        def sweeper_class
+          require 'activity_engine/activity_sweeper'
+          ActivitySweeper
         end
       end
     end

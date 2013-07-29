@@ -6,16 +6,6 @@ module ActivityEngine
     entry_builder.generate
   end
 
-  def register_models(*models)
-    ActivitySweeper.observe(*models)
-  end
-
-  def register_controller(controller_name, actions)
-    controller_name.constantize.module_exec(actions) do |swept_actions|
-      cache_sweeper ActivitySweeper, only: swept_actions
-    end
-  end
-
   def extract_subject_id(object)
     Array(object.to_key).join(":")
   end

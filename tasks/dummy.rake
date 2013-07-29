@@ -54,7 +54,10 @@ namespace :dummy do
     system("rails generate scaffold Invisible")
 
     require 'generators/activity_engine/register_generator'
+    # require 'debugger'; debugger; true
     system("rails generate activity_engine:register Watch create")
+
+    # require 'debugger'; debugger; true
     Rake::Task['dummy:cleanup'].invoke
   end
 

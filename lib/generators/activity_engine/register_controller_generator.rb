@@ -1,6 +1,6 @@
 module ActivityEngine
   module Generators
-    class RegisterGenerator < Rails::Generators::Base
+    class RegisterControllerGenerator < Rails::Generators::Base
       source_root File.expand_path("../templates", __FILE__)
 
       desc "Creates a ActivityEngine initializer."

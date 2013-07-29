@@ -5,13 +5,10 @@ module ActivityEngine
     config.generators do |g|
       g.test_framework :rspec, :fixture => false
     end
-  end
 
-  extend ActiveSupport::Autoload
-  autoload :ContextBuilder
-  autoload :ActivityBuilder
-  autoload :ActivityDataStructure
-  autoload :ActivitySweeper
-  autoload :Activity
-  autoload :EntryBuilder
+
+    initializer "activity_engine.initialize", after: :load_config_initializers do
+      require 'activity_engine/activity_sweeper'
+    end
+  end
 end

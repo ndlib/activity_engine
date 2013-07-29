@@ -24,7 +24,8 @@ end
 
 require 'activity_engine/engine'
 require 'activity_engine/version'
+require 'activity_engine/exceptions'
 require 'activity_engine/activity_builder'
 require 'activity_engine/activity_data_structure'
 require 'activity_engine/context_builder'
-require 'activity_engine/exceptions'
+require 'activity_engine/entry_builder'

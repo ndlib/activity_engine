@@ -16,12 +16,6 @@ module ActivityEngine
     end
   end
 
-  def register_call(class_name, method_name, activity_receiver = Activity, &config_block)
-    context_builder = ContextBuilder.new(class_name, method_name)
-    activity_builder = ActivityBuilder.new(activity_receiver, config_block)
-    context_builder.wrap!(activity_builder)
-  end
-
   def extract_subject_id(object)
     Array(object.to_key).join(":")
   end

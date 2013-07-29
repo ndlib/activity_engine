@@ -14,19 +14,14 @@ describe ActivityEngine::EntryBuilder do
   before(:each) do
   end
 
-  describe '.register_call' do
-    let(:instance_method_name) { 'new' }
-    it 'delegates to ActivityEngine.register_call' do
-      engine.should_receive(:register_call).with(model, instance_method_name)
-      subject.register_call(instance_method_name)
-    end
-  end
+  it { should respond_to :register_call }
+  it { should respond_to :register_controller }
 
   describe '.register_controller' do
     let(:model) { PersistenceLayer }
     let(:controller_name) { 'Class' }
     let(:actions) { 'new' }
-    it 'delegates to ActivityEngine.register_call' do
+    it 'delegates to ActivityEngine.register_controller' do
       engine.should_receive(:register_models).with(Array(model))
       engine.should_receive(:register_controller).with(controller_name, actions)
       subject.register_controller(controller_name, actions)

@@ -1,4 +1,3 @@
-require 'activity_engine/engine'
 module ActivityEngine
   module_function
   def register_models(*models)
@@ -22,3 +21,10 @@ module ActivityEngine
   end
 
 end
+
+require 'activity_engine/engine'
+require 'activity_engine/version'
+require 'activity_engine/activity_builder'
+require 'activity_engine/activity_data_structure'
+require 'activity_engine/context_builder'
+require 'activity_engine/exceptions'

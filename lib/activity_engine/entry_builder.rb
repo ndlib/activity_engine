@@ -3,9 +3,19 @@ module ActivityEngine
   class EntryBuilder
     attr_accessor :models
     private :models=
-    def initialize(*model_names)
+    def initialize(*models)
       yield(self) if block_given?
-      self.models = model_names
+      models.flatten!
+      models.collect! { |model| model.respond_to?(:to_sym) ? model.to_s.camelize.constantize : model }
+      self.models = models
+    end
+
+    def customize(&customization_block)
+      return unless customization_block
+      customization_block.call(self)
+    end
+
+    def generate
     end
 
     def method_missing(method_name, *args, &block)

@@ -4,9 +4,9 @@ require 'spec_helper'
 
 describe ActivityEngine::EntryBuilder do
   let(:engine) { double }
-  let(:models) { 'PersistenceLayer' }
+  let(:model) { PersistenceLayer }
   subject {
-    ActivityEngine::EntryBuilder.new(models).tap {|builder|
+    ActivityEngine::EntryBuilder.new(model).tap {|builder|
       builder.engine = engine
     }
   }
@@ -15,21 +15,21 @@ describe ActivityEngine::EntryBuilder do
   end
 
   describe '.register_call' do
-    let(:klass_name) { 'Class' }
     let(:instance_method_name) { 'new' }
     it 'delegates to ActivityEngine.register_call' do
-      engine.should_receive(:register_call).with(klass_name, instance_method_name)
-      subject.register_call(klass_name, instance_method_name)
+      engine.should_receive(:register_call).with(model, instance_method_name)
+      subject.register_call(instance_method_name)
     end
   end
 
   describe '.register_controller' do
-    let(:klass_name) { 'Class' }
+    let(:model) { PersistenceLayer }
+    let(:controller_name) { 'Class' }
     let(:actions) { 'new' }
     it 'delegates to ActivityEngine.register_call' do
-      engine.should_receive(:register_models).with(Array(models))
-      engine.should_receive(:register_controller).with(klass_name, actions)
-      subject.register_controller(klass_name, actions)
+      engine.should_receive(:register_models).with(Array(model))
+      engine.should_receive(:register_controller).with(controller_name, actions)
+      subject.register_controller(controller_name, actions)
     end
   end
 

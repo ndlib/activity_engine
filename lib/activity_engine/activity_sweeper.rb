@@ -25,14 +25,17 @@ module ActivityEngine
 
     def after_save(record)
       self.records_processed ||= []
-      if ! self.records_processed.include?(record)
-        self.records_processed << record
-        ActivityEngine::Activity.new.tap {|activity|
-          activity.subject = record
-          activity.user = current_user if respond_to?(:current_user)
-          activity.activity_type = "#{controller_name}##{action_name}"
-        }.save!
-      end
+      # Because the sweeper is now attached as an observer I don't want every
+      # save of the record to trigger this behavior.
+      return true unless controller
+      return true if self.records_processed.include?(record)
+
+      self.records_processed << record
+      ActivityEngine::Activity.new.tap {|activity|
+        activity.subject = record
+        activity.user = current_user if respond_to?(:current_user)
+        activity.activity_type = "#{controller_name}##{action_name}"
+      }.save
       true
     end
   end

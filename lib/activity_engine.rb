@@ -1,19 +1,9 @@
 module ActivityEngine
   module_function
-  def register_models(*models)
-    ActivitySweeper.observe(*models)
-  end
-
-  def register_controller(controller_name, actions)
-    controller_name.constantize.module_exec(actions) do |swept_actions|
-      cache_sweeper ActivitySweeper, only: swept_actions
-    end
-  end
-
-  def register_call(class_name, method_name, activity_receiver = Activity, &config_block)
-    context_builder = ContextBuilder.new(class_name, method_name)
-    activity_builder = ActivityBuilder.new(activity_receiver, config_block)
-    context_builder.wrap!(activity_builder)
+  def for_models(*models, &configuration_block)
+    entry_builder = EntryBuilder.new(*models)
+    entry_builder.customize(&configuration_block)
+    entry_builder.generate
   end
 
   def extract_subject_id(object)
@@ -28,3 +18,4 @@ require 'activity_engine/activity_builder'
 require 'activity_engine/activity_data_structure'
 require 'activity_engine/context_builder'
 require 'activity_engine/exceptions'
+require 'activity_engine/entry_builder'

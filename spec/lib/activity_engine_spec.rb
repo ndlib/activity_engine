@@ -18,12 +18,14 @@ describe ActivityEngine do
     let(:receiver) { ActivityEngine::Activity }
 
     it 'reports when the method is called' do
-      ActivityEngine.register_call(Cat, :eat, receiver) do |config, context|
-        config.subject = context
-        config.activity_type = 'Cat#eat'
+      ActivityEngine.for_models(:cat) do |builder|
+        builder.register_call(:eat) do |activity, context|
+          activity.subject = context
+          activity.activity_type = 'Cat#eat'
+        end
       end
       cat.eat(food)
-      expect(receiver.last.subject).to eq(cat)
+      expect(ActivityEngine::Activity.last.subject).to eq(cat)
     end
   end
 

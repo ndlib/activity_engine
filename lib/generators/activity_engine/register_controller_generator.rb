@@ -1,6 +1,6 @@
 module ActivityEngine
   module Generators
-    class RegisterGenerator < Rails::Generators::Base
+    class RegisterControllerGenerator < Rails::Generators::Base
       source_root File.expand_path("../templates", __FILE__)
 
       desc "Creates a ActivityEngine initializer."
@@ -10,13 +10,13 @@ module ActivityEngine
       def copy_initializer
         generate('activity_engine:install')
         text = [
-          "ActivityEngine.register_models('#{class_name}')",
-          "ActivityEngine.register_controller('#{class_name.pluralize}Controller', '#{method_name}')",
+          %(ActivityEngine.for_models('#{class_name}') do |builder|),
+          %(  builder.register_controller('#{class_name.pluralize}Controller', '#{method_name}')),
+          %(end),
           "",
           ""
         ].join("\n")
-
-        inject_into_file('config/post_initializers/activity_engine_config.rb', text, before: /\A.*ActivityEngine.register/)
+        prepend_file('config/post_initializers/activity_engine_config.rb', text)
       end
     end
   end
